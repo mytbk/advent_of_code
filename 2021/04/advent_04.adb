@@ -42,7 +42,7 @@ procedure Advent_04 is
 	    end loop;
 	 end loop;
 	 for Row of marked_cells loop
-	    if Row(1) and then Row(2) and then Row(3) and then Row(4) and then Row(5) then
+	    if Row = Marked_Row'(others => True) then
 	       Win := True;
 	       exit;
 	    end if;
@@ -59,7 +59,6 @@ procedure Advent_04 is
 	    declare
 	       Sum_Unmarked : Integer := 0;
 	    begin
-	       
 	       for Row in 1 .. 5 loop
 		  for Column in 1 .. 5 loop
 		     if not Marked_Cells(Row)(Column) then
@@ -69,10 +68,10 @@ procedure Advent_04 is
 	       end loop;
 	       return Sum_Unmarked * Last_Marked;
 	    end;
-	    
 	 end if;
       end loop;
-      return 0; -- should not happen   
+
+      raise Program_Error;
    end Get_Score;
    
    Min_Steps : Integer := 25;
@@ -96,8 +95,8 @@ begin
       end loop;
    end;
    
-   -- read board
    while not End_Of_File loop
+      -- read a board
       for I in 1 .. 5 loop
 	 for J in 1 .. 5 loop
 	    Get(Board(I)(J));
