@@ -3,9 +3,6 @@ use Ada.Text_IO;
 with Ada.Integer_Text_IO;
 use Ada.Integer_Text_IO;
 
---with Ada.Strings.Unbounded;
---use Ada.Strings.Unbounded;
-
 with Ada.Containers.Vectors;
 
 procedure Advent_05 is
@@ -60,7 +57,7 @@ procedure Advent_05 is
       end loop;
    end Mark_Horizontal;
    
-   procedure Mark_Vertical(Diagram: in out Diagram_Type; row, y1, y2: Coordinate) is
+   procedure Mark_Vertical(Diagram: in out Diagram_Type; Row, Y1, Y2: Coordinate) is
    begin
       for Y in Y1 .. Y2 loop
 	 Diagram(Row)(Y) := Diagram(Row)(Y) + 1;
@@ -85,7 +82,7 @@ procedure Advent_05 is
 	 end if;
 	 
 	 loop
-	    Diagram(Xcur)(Ycur) := Diagram(XCur)(YCur) + 1;
+	    Diagram(Xcur)(Ycur) := Diagram(Xcur)(Ycur) + 1;
 	    exit when Xcur = X2;
 	    Xcur := Xcur + Xstep;
 	    Ycur := Ycur + Ystep;
@@ -103,7 +100,7 @@ procedure Advent_05 is
 	 end if;
       elsif Seg.P1.Y = Seg.P2.Y then
 	 if Seg.P1.X <= Seg.P2.X then
-	    mark_horizontal(Diagram, Seg.P1.Y, Seg.P1.X, Seg.P2.X);
+	    Mark_Horizontal(Diagram, Seg.P1.Y, Seg.P1.X, Seg.P2.X);
 	 else
 	    Mark_Horizontal(Diagram, Seg.P1.Y, Seg.P2.X, Seg.P1.X);
 	 end if;
