@@ -50,19 +50,23 @@ procedure Advent_05 is
      (Element_Type => Segment_Type, Index_Type => Natural);
    subtype Segment_Vector is Segment_Vectors.Vector;
    
-   procedure Mark_Horizontal(Diagram: in out Diagram_Type; Col, X1, X2: Coordinate) is
+   procedure Mark_Vertical(Diagram: in out Diagram_Type; Col, X1, X2: Coordinate) is
+      Minx: constant Coordinate := Coordinate'Min(X1, X2);
+      Maxx: constant Coordinate := Coordinate'Max(X1, X2);
    begin
-      for X in X1 .. X2 loop
+      for X in Minx .. Maxx loop
 	 Diagram(X)(Col) := Diagram(X)(Col) + 1;
       end loop;
-   end Mark_Horizontal;
+   end Mark_Vertical;
    
-   procedure Mark_Vertical(Diagram: in out Diagram_Type; Row, Y1, Y2: Coordinate) is
+   procedure Mark_Horizontal(Diagram: in out Diagram_Type; Row, Y1, Y2: Coordinate) is
+      Miny: constant Coordinate := Coordinate'Min(Y1, Y2);
+      Maxy: constant Coordinate := Coordinate'Max(Y1, Y2);
    begin
-      for Y in Y1 .. Y2 loop
+      for Y in Miny .. Maxy loop
 	 Diagram(Row)(Y) := Diagram(Row)(Y) + 1;
       end loop;
-   end Mark_Vertical;
+   end Mark_Horizontal;
    
    procedure Mark_Diagonal(Diagram: in out Diagram_Type; X1, Y1, X2, Y2: Coordinate) is
       Xstep, Ystep : Integer;
@@ -93,17 +97,9 @@ procedure Advent_05 is
    procedure Mark_Diagram(Diagram: in out Diagram_Type; Seg: Segment_Type) is
    begin
       if Seg.P1.X = Seg.P2.X then
-	 if Seg.P1.Y <= Seg.P2.Y then
-	    Mark_Vertical(Diagram, Seg.P1.X, Seg.P1.Y, Seg.P2.Y);
-	 else
-	    Mark_Vertical(Diagram, Seg.P1.X, Seg.P2.Y, Seg.P1.Y);
-	 end if;
+	 Mark_Horizontal(Diagram, Row => Seg.P1.X, Y1 => Seg.P1.Y, Y2 => Seg.P2.Y);
       elsif Seg.P1.Y = Seg.P2.Y then
-	 if Seg.P1.X <= Seg.P2.X then
-	    Mark_Horizontal(Diagram, Seg.P1.Y, Seg.P1.X, Seg.P2.X);
-	 else
-	    Mark_Horizontal(Diagram, Seg.P1.Y, Seg.P2.X, Seg.P1.X);
-	 end if;
+	 Mark_Vertical(Diagram, Col => Seg.P1.Y, X1 => Seg.P1.X, X2 => Seg.P2.X);
       end if;
    end Mark_Diagram;
    
