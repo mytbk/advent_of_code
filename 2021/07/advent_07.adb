@@ -30,7 +30,9 @@ procedure Advent_07 is
    -- f(x) = Sum( (|x-a|(|x-a|+1))/2 )
    --      = 1/2 Sum((x**2)-2ax+a**2+|x-a|)
    --      = 1/2 (n*(x**2)-2(Sum(a))x+Sum(|x-a|)+C)
-   -- for x in (a(i),a(i+1)), the x that makes f'(x)=0 is 2(Sum(a))/(n+2i)
+   -- for x in (a(i),a(i+1)),
+   -- f(x)=1/2(n*(x**2)-2(Sum(a))x+(i-(n-i))x+C)
+   -- the x that makes f'(x)=0 is (2(Sum(a))+(n-2i))/2n = Average(a)+(n-2i)/2n
    
    function Sum_Fuel(Positions: Int_Vector; Dest: Integer) return Integer is
       Sum : Integer := 0;
@@ -55,7 +57,7 @@ procedure Advent_07 is
       end loop;
       
       for I in Positions.First_Index .. Positions.Last_Index loop
-	 Min_Point := 2 * Sum_Vec / (Len + 2 * (I - Positions.First_Index + 1));
+	 Min_Point := (2 * Sum_Vec + Len - I * 2) / (Len * 2);
 	 -- just calculate it without considering if Min_Point is in range
 	 Min_Fuel := Integer'Min(Min_Fuel, Sum_Fuel(Positions, Positions(I)));
 	 Min_Fuel := Integer'Min(Min_Fuel, Sum_Fuel(Positions, Min_Point));
