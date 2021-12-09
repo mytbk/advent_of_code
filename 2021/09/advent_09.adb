@@ -35,7 +35,7 @@ procedure Advent_09 is
    end To_Height_Map;
    
    type Natural_Array is array (Natural range <>) of Natural;
-   procedure Integer_Sort is new Ada.Containers.Generic_Array_Sort
+   procedure Natural_Sort_Reversed is new Ada.Containers.Generic_Array_Sort
 	(Index_Type => Natural, Element_Type => Natural, Array_Type => Natural_Array, "<" => ">");
 begin
    while not End_Of_File loop
@@ -64,7 +64,7 @@ begin
       end loop;
       
       Sorted_Basin_Sizes := Basin_Sizes;
-      Integer_Sort(Sorted_Basin_Sizes);
+      Natural_Sort_Reversed(Sorted_Basin_Sizes);
       --  for I of Sorted_Basin_Sizes loop
       --  	 Put(I);
       --  end loop;
