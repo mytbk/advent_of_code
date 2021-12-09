@@ -21,7 +21,7 @@ package Height_Maps is
    end record;
    
    function Find_All_Low_Points(H_Map : Height_Map) return Point_List;
-   function Risc_Level(H_Map: Height_Map; Pts: Point_List) return Natural;
+   function Risk_Level(H_Map: Height_Map; Pts: Point_List) return Natural;
    function Generate_Basin_Map(H_Map: Height_Map; Pts: Point_List) return Basin_Map;
    procedure Print_Basin_Map(B_Map: Basin_Map);
 private

@@ -28,15 +28,15 @@ package body Height_Maps is
       return Pts;
    end Find_All_Low_Points;
 
-   function Risc_Level(H_Map: Height_Map; Pts: Point_List) return Natural is
-      Sum_Risc : Natural := 0;
+   function Risk_Level(H_Map: Height_Map; Pts: Point_List) return Natural is
+      Sum_Risk : Natural := 0;
       Map: Map_Type renames H_Map.Map_Data;
    begin
       for Pt of Pts loop
-	 Sum_Risc := Sum_Risc + Map(Pt.x,Pt.Y) + 1;
+	 Sum_Risk := Sum_Risk + Map(Pt.X,Pt.Y) + 1;
       end loop;
-      return Sum_Risc;
-   end Risc_Level;
+      return Sum_Risk;
+   end Risk_Level;
    
    function Generate_Basin_Map(H_Map: Height_Map; Pts: Point_List) return Basin_Map is
       B_Map: Basin_Map(H_Map.X_Last, H_Map.Y_Last);

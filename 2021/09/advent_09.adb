@@ -52,7 +52,7 @@ begin
       Sorted_Basin_Sizes : Natural_Array(Basin_Sizes'Range);
       Size_Multiplied : Natural := 1;
    begin
-      Put(Risc_Level(H_Map, Low_Points));
+      Put(Risk_Level(H_Map, Low_Points));
       New_Line;
       -- Print_Basin_Map(B_Map);
       for X in 1 .. B_Map.X_Last loop
