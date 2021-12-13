@@ -15,8 +15,9 @@ package Graph is
    -- Vertex_Vectors store vertices connected from a vertex
    
    use Vertex_Vectors;
+   subtype Vertex_Vector is Vertex_Vectors.Vector;
    package Connected_Node_Vectors is new Ada.Containers.Vectors
-     (Element_Type => Vertex_Vectors.Vector, Index_Type => Vertex_Id);
+     (Element_Type => Vertex_Vector, Index_Type => Vertex_Id);
    -- Connected_Node_Vectors store connected vertices for each vertex
    
    subtype Connected_Node_Vector is Connected_Node_Vectors.Vector;
@@ -46,7 +47,13 @@ package Graph is
    
    subtype Path_Vector is Path_Vectors.Vector;
    
-   procedure Find_Paths(G: Sparse_Graph; Paths: out Path_Vector);
+   -- predicates to check the last vertex of a path
+   type Graph_Predicate is access function(G: Sparse_Graph; Path: Vertex_Vector) return Boolean;
+   function Path_Without_Repeated_Small_Cave(G: Sparse_Graph; Path: Vertex_Vector) return Boolean;
+   function Path_With_At_Most_One_Repeated_Small(G: Sparse_Graph; Path: Vertex_Vector) return Boolean;
+   
+   procedure Find_Paths(G: Sparse_Graph; Paths: out Path_Vector;
+			Predicate: Graph_Predicate := Path_Without_Repeated_Small_Cave'Access);
    
    function Is_Small(G: Sparse_Graph; V: Vertex_Id) return Boolean;
 end Graph;

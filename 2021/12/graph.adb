@@ -1,6 +1,6 @@
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
---with Ada.Text_Io; use Ada.Text_Io;
---with Ada.Integer_Text_Io; use Ada.Integer_Text_Io;
+-- with Ada.Text_Io; use Ada.Text_Io;
+
 package body Graph is
    use String_Vectors;
    
@@ -44,7 +44,47 @@ package body Graph is
       G.Edge_List(Dest_Id).Append(Src_Id);
    end Add_Edge;
    
-   procedure Find_Paths(G: Sparse_Graph; Paths: out Path_Vector) is
+   function Path_Without_Repeated_Small_Cave(G: Sparse_Graph; Path: Vertex_Vector) return Boolean is
+      Current_Vertex: constant Vertex_Id := Path.Last_Element;
+   begin
+      if Is_Small(G, Current_Vertex) then
+	 for I in Path.First_Index .. Path.Last_Index - 1 loop
+	    if Path(I) = Current_Vertex then
+	       -- go to a same small cave twice
+	       return False;
+	    end if;
+	 end loop;
+      end if;
+      return True;
+   end Path_Without_Repeated_Small_Cave;
+   
+   function Path_With_At_Most_One_Repeated_Small(G: Sparse_Graph; Path: Vertex_Vector) return Boolean is
+      type Visit_Times_Array is array (Vertex_Id range <>) of Natural;
+      Visit_Times: Visit_Times_Array (1 .. G.Vertex_Names.Last_Index) := (others => 0);
+      Has_Same_Small: Boolean := False;
+   begin
+      for V of Path loop
+	 if Is_Small(G, V) then
+	    Visit_Times(V) := Visit_Times(V) + 1;
+	    if Visit_Times(V) > 1 then
+	       -- special case: "start" and "end" can appear at most once
+	       if V = Start_Vertex or else V = End_Vertex then
+		  return False;
+	       end if;
+	       
+	       if Has_Same_Small then
+		  return False;
+	       else
+		  Has_Same_Small := True;
+	       end if;
+	    end if;
+	 end if;
+      end loop;
+      return True;      
+   end Path_With_At_Most_One_Repeated_Small;
+
+   procedure Find_Paths(G: Sparse_Graph; Paths: out Path_Vector;
+			Predicate: Graph_Predicate := Path_Without_Repeated_Small_Cave'Access) is
       Path: Vertex_Vectors.Vector;
 
       procedure Find_Paths_Dfs is
@@ -65,17 +105,20 @@ package body Graph is
 	 Current_Vertex := Path.Last_Element;
 	 if Current_Vertex = End_Vertex then
 	    -- find a valid path
+	    
+	    --  Put("found path: ");
+	    --  for V of Path loop
+	    --     Put(To_String(G.Vertex_Names(V)));
+	    --     Put(" ");
+	    --  end loop;
+	    --  New_Line;
+
 	    Paths.Append(Path);
 	    return;
 	 end if;
 	 
-	 if Is_Small(G, Current_Vertex) then
-	    for I in Path.First_Index .. Path.Last_Index - 1 loop
-	       if Path(I) = Current_Vertex then
-		  -- go to a same small cave twice
-		  return;
-	       end if;
-	    end loop;
+	 if not Predicate(G, Path) then
+	    return;
 	 end if;
 	 
 	 -- add a vertex to search next

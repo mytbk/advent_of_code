@@ -30,4 +30,8 @@ begin
    Find_Paths(G, Paths);
    
    Put_Line(Natural'Image(Natural(Paths.Length)));
+   
+   -- part 2
+   Find_Paths(G, Paths, Path_With_At_Most_One_Repeated_Small'Access);
+   Put_Line(Natural'Image(Natural(Paths.Length)));
 end Advent_12;
