@@ -48,7 +48,7 @@ begin
    -- the Y position first go up and the go down, Vy goes from Vy0 to 0
    -- at the highest place, and to -Vy0 when go back to Y=0, the next
    -- Vy at Y=0 is -(Vy0 + 1), so we need to make -(Vy0 + 1) >= Ymin,
-   -- i.e. Vy0 <= Ymin - 1
+   -- i.e. Vy0 <= abs(Ymin) - 1
    Put_Line(Natural'Image((abs(Ymin) - 1) * abs(Ymin) / 2));
    
    -- for part 2, iterate all the possible Vx0,Vy0 and simulate them
