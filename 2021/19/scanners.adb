@@ -52,15 +52,16 @@ package body Scanners is
       end Scanner_Overlapped;
       
       Not_Solved : Natural := Natural(Scanners.Length);
+      First_Scanner_Transform: Position_Transform renames Scanners(Scanners.First_Index).Transformed;
    begin
       if Scanners.Length <= 0 then
 	 return;
       end if;
       
       -- we don't transform the position of the first scanner
-      Scanners(Scanners.First_Index).Transformed.Transform_Id := 1;
-      Scanners(Scanners.First_Index).Transformed.Beacons := Scanners(Scanners.First_Index).Detected_Beacons;
-      
+      First_Scanner_Transform.Transform_Id := 1;
+      First_Scanner_Transform.Beacons := Scanners(Scanners.First_Index).Detected_Beacons;
+      First_Scanner_Transform.Scanner_Position := (0,0,0);
       Not_Solved := Not_Solved - 1;
       
       while Not_Solved > 0 loop
@@ -83,8 +84,10 @@ package body Scanners is
 		     if Scanner_Overlapped(Scanners(Prev), Scanners(I), Tid, Scanner_Pos) then
 			Found := True;
 			Not_Solved := Not_Solved - 1;
-			Put_Line("scanner " & Positive'Image(I) & " position: " & Image(Scanner_Pos));
 			Scanners(I).Transformed.Transform_Id := Tid;
+			Scanners(I).Transformed.Scanner_Position := Scanner_Pos;
+			Put_Line("scanner " & Positive'Image(I) & " position: " & Image(Scanner_Pos));
+
 			T_Beacons.Clear;
 			for P of Scanners(I).Detected_Beacons loop
 			   T_Beacons.Append(Scanner_Pos + All_Transforms(Tid)(P));

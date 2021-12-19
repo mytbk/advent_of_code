@@ -9,6 +9,8 @@ package Positions is
      ((P1.X + P2.X, P1.Y + P2.Y, P1.Z + P2.Z));
    function "-" (P1: Position; P2: Position) return Position is
      ((P1.X - P2.X, P1.Y - P2.Y, P1.Z - P2.Z));
+   function Manhatton(P: Position) return Natural is
+      (abs(P.X) + abs(P.Y) + abs(P.Z));
    
    function Image(P: Position) return String;
    

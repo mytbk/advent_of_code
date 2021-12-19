@@ -24,6 +24,7 @@ procedure Advent_19 is
    
    Scanners: Scanner_Vector;
    All_Beacons: Point_Set;
+   Largest_Manhatton: Natural := 0;
 begin
    while not End_Of_File loop
       declare
@@ -45,4 +46,18 @@ begin
    end loop;
    
    Put(Natural(All_Beacons.Length)); New_Line;
+   
+   for S1 of Scanners loop
+      for S2 of Scanners loop
+	 declare
+	    Dist: Natural := Manhatton(S1.Transformed.Scanner_Position -
+					 S2.Transformed.Scanner_Position);
+	 begin
+	    if Dist > Largest_Manhatton then
+	       Largest_Manhatton := Dist;
+	    end if;
+	 end;
+      end loop;
+   end loop;
+   Put(Largest_Manhatton); New_Line;
 end Advent_19;

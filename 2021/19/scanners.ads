@@ -11,7 +11,9 @@ package Scanners is
       -- with transform All_Transforms(Transform_Id), the orientation of the scanner
       -- becomes the same as the first scanner
       Transform_Id : Transform_Type := 1;
-      -- positions related to the first scanner
+      -- scanner position related to the first scanner
+      Scanner_Position: Position;
+      -- beacon positions related to the first scanner
       Beacons: Position_Vector;
    end record;
    
