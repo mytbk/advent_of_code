@@ -12,7 +12,7 @@ package Scanners is
       -- becomes the same as the first scanner
       Transform_Id : Transform_Type := 1;
       -- scanner position related to the first scanner
-      Scanner_Position: Position;
+      Scanner_Position: Position := (0,0,0);
       -- beacon positions related to the first scanner
       Beacons: Position_Vector;
    end record;
