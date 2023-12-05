@@ -85,7 +85,7 @@ begin
    -- read marked numbers
    declare
       L : String := Get_Line;
-      Marked_strings : StringVec := Split_String(L, ',');
+      Marked_strings : String_Vec := Split_String(L, ',');
       Val: Integer;
       Unused_Last: Positive;
    begin

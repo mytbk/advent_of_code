@@ -68,7 +68,7 @@ procedure Advent_06 is
 begin
    declare
       L: String := Get_Line;
-      Timer_Strings: StringVec := Split_String(L, ',');
+      Timer_Strings: String_Vec := Split_String(L, ',');
    begin
       for T of Timer_Strings loop
 	 Timers.Append(Timer_Value'Value(To_String(T)));

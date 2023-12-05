@@ -69,7 +69,7 @@ procedure Advent_07 is
 begin
    declare
       L: String := Get_Line;
-      Int_Strings: StringVec := Split_String(L, ',');
+      Int_Strings: String_Vec := Split_String(L, ',');
    begin
       for I of Int_Strings loop
 	 Positions.Append(Integer'Value(To_String(I)));

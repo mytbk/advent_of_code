@@ -19,8 +19,8 @@ procedure Advent_02 is
    end record;
 
    procedure Parse_Game(S : String; Info : out Game_Info) is
-      Game_And_Content : constant StringVec := Split_String(S, ':');
-      Game_Sets : constant StringVec := Split_String(To_String(Game_And_Content(2)), ';');
+      Game_And_Content : constant String_Vec := Split_String(S, ':');
+      Game_Sets : constant String_Vec := Split_String(To_String(Game_And_Content(2)), ';');
       Game_Number : Integer;
       Found_Game_Number : Boolean;
       Unused_Last : Positive;
@@ -29,7 +29,7 @@ procedure Advent_02 is
       Info.Game_Id := Game_Number;
       for Game_Set of Game_Sets loop
 	 declare
-	    Cube_Strings : constant StringVec := Split_String(To_String(Game_Set), ',');
+	    Cube_Strings : constant String_Vec := Split_String(To_String(Game_Set), ',');
 	 begin
 	    declare
 	       Cube_Set : Cube_Set_Type := (others => 0);

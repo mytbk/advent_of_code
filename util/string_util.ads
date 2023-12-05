@@ -7,9 +7,9 @@ package String_Util is
 		Element_Type => Unbounded_String,
 		Index_Type => Positive);
 
-	subtype StringVec is String_Vectors.Vector;
+	subtype String_Vec is String_Vectors.Vector;
 
-   function Split_String(src: String; delim: Character) return StringVec;
+   function Split_String(src: String; delim: Character) return String_Vec;
    -- Split a string with a specific delimeter, return an unbounded string vector
    
    procedure Find_Number(S : String; Num : out Integer;

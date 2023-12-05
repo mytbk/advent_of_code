@@ -1,6 +1,6 @@
 package body String_Util is
-	function Split_String(src: String; delim: Character) return StringVec is
-		vec: StringVec;
+	function Split_String(src: String; delim: Character) return String_Vec is
+		vec: String_Vec;
 		start: Positive := src'First;
 	begin
 		for idx in src'Range loop
