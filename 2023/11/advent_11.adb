@@ -18,13 +18,7 @@ procedure Advent_11 is
 
    subtype Point_Vector is Point_Vectors.Vector;
    
-   package Positive_Vectors is new Ada.Containers.Vectors
-     (Element_Type => Positive, Index_Type => Positive);
-   
-   subtype Positive_Vector is Positive_Vectors.Vector;
-   
    Original_Image : Galaxy_Image;
-   Expanded_Image : Galaxy_Image;
    Galaxy_Positions_1 : Point_Vector;
    Galaxy_Positions_2 : Point_Vector;
    
@@ -72,7 +66,7 @@ procedure Advent_11 is
 	    end loop;
 	 end if;
       end loop;
-   end;
+   end Expand;
 
 begin
    while not End_Of_File loop
