@@ -111,4 +111,16 @@ begin
       Current_Shape_Id := Current_Shape_Id + 1;
    end loop;
    Put_Line(Natural'Image(Cave.Max_Rock_Height));
+   
+   Put_Line("current time is " & Natural'Image(Current_Time));
+   for I in reverse 1 .. Cave.Max_Rock_Height loop
+      for Elem of Cave.Elements(I) loop
+	 if Elem = Rock then
+	    Put('#');
+	 else
+	    Put('.');
+	 end if;
+      end loop;
+      New_Line;
+   end loop;
 end Advent_17_1;
